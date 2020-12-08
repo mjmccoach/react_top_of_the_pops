@@ -4,12 +4,23 @@ import SongSelector from '../components/SongSelector';
 
 const SongContainer = () => {
 
-    const [song, setSong] = useState(1)
+    const [song, setSong] = useState({})
+    const [songId, setSongId] = useState(1)
 
     const getSong = () => {
-        fetch(`https://itunes.apple.com/gb/rss/topsongs/limit=20/json`)
+        fetch(`https://itunes.apple.com/gb/rss/topsongs/limit=20/json`) //fetching data from
         .then(res => res.json())
         .then(data => setSong(data))
+    }
+
+    const incrementSongId = () => {
+        if(setSongId < 20)
+        {setSongId +1 }
+    }
+
+    const decrementSongId = () => {
+        if(setSongId > 1)
+        {setSongId - 1}
     }
     return (
         <>
