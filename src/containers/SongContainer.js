@@ -1,34 +1,32 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import SongList from '../components/SongList';
-import SongSelector from '../components/SongSelector';
 
 const SongContainer = () => {
 
-    const [song, setSong] = useState({})
-    const [songId, setSongId] = useState(1)
+    const [songs, setSongs] = useState([])
+    
 
-    const getSong = () => {
+    const getSongs = () => {
         fetch(`https://itunes.apple.com/gb/rss/topsongs/limit=20/json`) //fetching data from
         .then(res => res.json())
-        .then(data => setSong(data))
+        .then(data => setSongs(data.feed.entry))
+        
     }
 
-    const incrementSongId = () => {
-        if(setSongId < 20)
-        {setSongId +1 }
-    }
+    console.log(songs)
 
-    const decrementSongId = () => {
-        if(setSongId > 1)
-        {setSongId - 1}
-    }
-    return (
+    useEffect(() => {
+        getSongs();
+      },[])
+
+ 
+      return (
         <>
         <h1>I'm the Song Container</h1>
-        <SongList />
-        <SongSelector />
+        {<SongList songs={songs}/>}
         </>
     )
+
 }
 
 export default SongContainer;

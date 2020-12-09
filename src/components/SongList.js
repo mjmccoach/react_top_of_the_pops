@@ -1,7 +1,23 @@
-const SongList = () => {
+import SongListItem from './SongListItem.js'
+
+const SongList = ({songs}) => {
+
+    const SongListItems = songs.map( item => {
     return (
-        <h2>I'm the SongList</h2>
+
+        <SongListItem
+            key={item ["id"]["attributes"]["im:id"]}
+            artist={item["im:artist"]["label"]}
+            song={item["im:name"]["label"]}
+            artwork={item["im:image"][1]["label"]}
+            />
+    
+    )})
+
+    return (
+        <ul> {SongListItems} </ul> 
     )
+
 }
 
 export default SongList;
